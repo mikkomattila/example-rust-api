@@ -1,6 +1,6 @@
 # example-api-rust
 
-Example API with docker setup.
+Testing out Rust with docker.
 
 ## Local
 

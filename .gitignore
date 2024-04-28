@@ -1,6 +1,5 @@
 /target
 .DS_Store
-node_modules
-dist
-.env
 Cargo.lock
+dist
+TODO.md
