@@ -1,0 +1,9 @@
+[package]
+name = "example-api-rust"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = { version = "0.7.5", features = ["json"] }
+serde = { version = "1.0.199", features = ["derive"] }
+tokio = { version = "1.37.0", features = ["full"] }
