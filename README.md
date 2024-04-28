@@ -1,13 +1,13 @@
 # example-api-rust
 
-1. Create docker image
+Example API with docker setup.
 
-    `docker build --tag example-api-rust .`
+## Local
 
-2. Run docker container from image
+1. Start the application
 
-    `docker run -d -p 8000:3000 example-api-rust`
+    `docker compose up -d`
 
-3. Test the application
+2. Test the application
 
-    `curl -X POST localhost:8000/users -d '{"username":"jebaited"}' -H "Content-Type:application/json"`
+    `curl -X POST localhost:8000/users -d '{"username":"test"}' -H "Content-Type:application/json"`
