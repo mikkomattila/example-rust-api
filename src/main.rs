@@ -3,10 +3,8 @@ use axum::{
     routing::{get, post},
     Router,
 };
+use example_api_rust::handlers;
 use tower_http::cors::CorsLayer;
-
-mod handlers;
-mod models;
 
 #[tokio::main]
 async fn main() {
