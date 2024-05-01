@@ -1,6 +1,9 @@
 use crate::models::{CreateUser, Creature, User};
 use axum::{http::StatusCode, Json};
 
+/// Random hard coded endpoints for practice
+/// TODO: Add postgres
+
 pub async fn root() -> &'static str {
     "Hello from Rust!"
 }
