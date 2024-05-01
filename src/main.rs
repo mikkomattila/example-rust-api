@@ -9,8 +9,11 @@ use tower_http::cors::CorsLayer;
 
 #[tokio::main]
 async fn main() {
-    let tcp_address = env::var("BIND_ADDRESS").unwrap_or_else(|_| "0.0.0.0:3000".to_string());
-    let app = router().layer(cors_layer());
+    let cors_allow_origin =
+        env::var("CORS_ALLOW_ORIGIN").unwrap_or_else(|_| "http://localhost:5173".to_string());
+    let tcp_address = env::var("TCP_BIND_ADDRESS").unwrap_or_else(|_| "0.0.0.0:3000".to_string());
+
+    let app = router().layer(cors_layer(cors_allow_origin));
     let listener = tokio::net::TcpListener::bind(tcp_address).await.unwrap();
 
     axum::serve(listener, app).await.unwrap();
@@ -23,10 +26,8 @@ fn router() -> Router {
         .route("/users", post(handlers::create_user))
 }
 
-fn cors_layer() -> CorsLayer {
-    let cors_allow_origin_address =
-        env::var("CORS_ORIGIN").unwrap_or_else(|_| "http://localhost:5173".to_string());
+fn cors_layer(cors_allow_origin: String) -> CorsLayer {
     CorsLayer::new()
-        .allow_origin(cors_allow_origin_address.parse::<HeaderValue>().unwrap())
+        .allow_origin(cors_allow_origin.parse::<HeaderValue>().unwrap())
         .allow_methods([Method::GET])
 }
