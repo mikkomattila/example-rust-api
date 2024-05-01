@@ -21,17 +21,32 @@ pub async fn create_user(Json(payload): Json<CreateUser>) -> (StatusCode, Json<U
 #[cfg(test)]
 mod handlers_tests {
     use super::*;
-    use axum::http::StatusCode;
 
     #[tokio::test]
-    async fn test_root() {
+    async fn test_root_returns_hello() {
         let response = root().await;
         assert_eq!(response, "Hello from Rust!");
     }
 
     #[tokio::test]
-    async fn test_get_creature() {
+    async fn test_get_creature_returns_ok() {
         let (status, _body) = get_creature().await;
         assert_eq!(status, StatusCode::OK);
+    }
+
+    #[tokio::test]
+    async fn test_create_user_returns_created() {
+        const TEST_USER: &str = "test_user";
+        let payload = CreateUser {
+            username: String::from(TEST_USER),
+        };
+
+        let (status, response) = {
+            let payload = axum::extract::Json(payload); // Convert payload into axum Json
+            create_user(payload).await
+        };
+
+        assert_eq!(response.username, TEST_USER);
+        assert_eq!(status, StatusCode::CREATED);
     }
 }

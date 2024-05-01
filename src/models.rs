@@ -19,7 +19,7 @@ impl Creature {
     }
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, Clone)]
 pub struct CreateUser {
     pub username: String,
 }
