@@ -44,10 +44,7 @@ mod handlers_tests {
             username: String::from(TEST_USER),
         };
 
-        let (status, response) = {
-            let payload = axum::extract::Json(payload); // Convert payload into axum Json
-            create_user(payload).await
-        };
+        let (status, response) = { create_user(axum::extract::Json(payload)).await };
 
         assert_eq!(response.username, TEST_USER);
         assert_eq!(status, StatusCode::CREATED);
